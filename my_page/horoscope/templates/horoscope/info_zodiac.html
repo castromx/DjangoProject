@@ -1,0 +1,23 @@
+<!-- більшу увагу приділив динамічному html, створив базовий .html та власний фільтр split -->
+{% extends 'base.html' %}
+
+{% load static %}
+{% load my_filters %}
+
+{% block css_additional %} 
+<link rel="stylesheet" href="{% static 'horoscope/css/info.css' %}">
+{% endblock %}
+
+{% block title %}
+    Гороскоп для {{sign | upper}}
+{% endblock %}
+
+{% block content %}
+    {% include 'includes/navbar.html' %} 
+   <h1>{{ description|split|first }}</h1>
+    {% if description is None %}
+	    <h2>Неправильний знак зодіаку - {{sign|upper}}</h2>
+	{% else %}
+	    <h2>{{description | capfirst|safe}}</h2>
+	{% endif %}
+{% endblock %}
